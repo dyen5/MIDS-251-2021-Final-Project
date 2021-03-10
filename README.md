@@ -51,6 +51,11 @@ Unzip dataset - 10 minutes
 unzip covidxct.zip
 ```
 
+# Setup Jupyter Notebook
+```
+https://dataschool.com/data-modeling-101/running-jupyter-notebook-on-an-ec2-server/
+```
+
 # References
 
 ### Create credentials in AWS
