@@ -6,35 +6,73 @@ s3://w251-covidx-ct
 ```
 
 ## AWS EC2 Instance
+The following steps will be used to start a spot instance in your local terminal. (note: awscli must be setup beforehand)
 ```
-ami-042e8287309f5df03
-tx2.large
-Ubuntu 20.04
-Volume = 128 GB
-
-SSH port 22 anywhere
-HTTPS port 443 anywhere
-custom TCP port 8888 anywhere
+Deep Learning AMI (Ubuntu 18.04) Version 32.0 - ami-0dc2264cd927ca9eb
+Spot Instance
 ```
-## Dependencies
+Get your vpcid and create a security group with it
 ```
-sudo su
-apt update
-apt install python3-pip
-apt install awscli
-apt install unzip
-
-pip3 install kaggle
+aws ec2 describe-vpcs | grep vpcId
+aws ec2 create-security-group --group-name fina_project --description "final_project" --vpc-id <vpc-b30cd6ce>
+```
+Allow the access t ports 22 and 8888 in the security group for Jupyter Notebook
+```
+aws ec2 authorize-security-group-ingress --group-id  sg-09ceb02f960da25fa  --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id  sg-09ceb02f960da25fa  --protocol tcp --port 8888 --cidr 0.0.0.0/0
 ```
 
-# Get Data from Kaggle
-
-Follow directions from the following site to get the dataset from Kaggle
+Find an instance of our AMI (note: need to have pytorch)
 ```
-https://confusedcoders.com/data-engineering/how-to-copy-kaggle-data-to-amazon-s3
+aws ec2 describe-images  --filters  Name=name,Values='Deep*Learning*Ubuntu*18.04*32*'
 ```
 
-An appreviated version of the instructions is as follows:
+Edit the ami, security group, and key name in the code below.  Then start the Deep Learning AMI using a p3.2xlarge instance (which has 8 vcpus and gpu enabled).  
+```
+aws ec2 run-instances --image-id <ami-0dc2264cd927ca9eb> --instance-type p3.2xlarge --security-group-ids <sg-09ceb02f960da25fa>  --associate-public-ip-address --key-name <w251-ec2-xavier>
+```
+
+ssh into the instance and then activate pytorch
+```
+ssh -i "w251-ec2-xavier.pem" ubuntu@ec2-34-238-192-211.compute-1.amazonaws.com
+source activate pytorch_latest_p36
+```
+## Configure AWS
+AWS needs to be configured to allow communication with s3 bucket where the data will be downloaded
+```
+aws configure 
+Access Key ID:  ####################
+Secret Acess Key: ##################
+Default region name: us-east-1
+Default output format: <hit enter>
+```
+
+## Options for retrieving data
+#### Get from s3 bucket 
+
+Make a folder called data in /home/ubuntu.  Chmod 777 enables copying into the file.
+```
+mkdir data
+chmod 777 data
+cd data
+```
+Check contents in s3
+```
+aws s3 ls s3://w251-covidx-ct
+```
+
+Copy folder containing the images from the s3 bucke
+```
+11:00
+aws s3 cp s3://w251-covidx-ct/2A_images/ . --recursive
+```
+
+Start jupyter notebook using public IP address of instance
+```
+jupyter notebook --ip=0.0.0.0 --no-browser
+http://34.238.192.211:8888/?token=856548d1dcecf3200e581fa857396d2568dcacaa7e066c80
+```
+#### Alternatively, get the data from kaggle
 
 Create Kaggle directory
 ```
@@ -57,107 +95,28 @@ Unzip dataset - 10 minutes
 unzip covidxct.zip
 ```
 
-Configure AWS
+## Dependencies
 ```
-aws configure 
-Access Key ID:  ####################
-Secret Acess Key: ##################
-Default region name: us-east-1
-Default output format: <hit enter>
+apt update
+apt install python3-pip
+apt install unzip
+
+pip3 install kaggle
 ```
 
-Copy files to S3 Bucket
-```
-aws s3 cp metadata.csv s3://w251-covidx-ct
-aws s3 cp train_COVIDx_CT-2A.txt s3://w251-covidx-ct
-aws s3 cp val_COVIDx_CT-2A.txt s3://w251-covidx-ct
-aws s3 cp test_COVIDx_CT-2A.txt s3://w251-covidx-ct
-aws s3 cp covidxct.zip s3://w251-covidx-ct
-```
 
-This copies the each image in the local file and places in a folder called 2A_images on s3 - 20 minutes
-```
-aws s3 cp 2A_images s3://w251-covidx-ct/2A_images --recursive
-```
 
-Check contents in s3
-```
-aws s3 ls s3://w251-covidx-ct
-```
-
-Sync images from s3 bucket to local machine
-```
-aws s3 sync s3://w251-covidx-ct /tmp/2A_images
-```
-
-# Setup Jupyter Notebook
-```
-https://dataschool.com/data-modeling-101/running-jupyter-notebook-on-an-ec2-server/
-```
-
-Download Anaconda to the VM
-```
-wget https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
-bash Anaconda3-2019.03-Linux-x86_64.sh
-```
-
-Enter yes for legal information and yes for appending path
-```
-export PATH=/root/anaconda3/bin:$PATH
-```
-
-If no was accidentally pressed, edit the path by (scroll all the way down). note: the bashrc file is hidden.
-```
-cd ~/root/andaconda3
-vi ~/.bashrc
-source ~/.bashrc
-```
-
-Exit terminal and ssh back into instance to update paths
-
-Enter ipython in commandline
-```
-ipython
-```
-
-Set a password for the notebook (password=w251
-```
-from IPython.lib import passwd
-
-passwd()
-exit
-```
-
-Copy the hash code from the output
-
-Edit the jupyter notebook config file
-```
-cd ~/.jupyter
-
-vim jupyter_notebook_config.py_
-```
-
-Copy the following to the top of the config file and edit the password hash
-```
-conf = get_config()
-
-conf.NotebookApp.ip = '0.0.0.0'
-conf.NotebookApp.password = u'<YOUR PASSWORD HASH>'
-conf.NotebookApp.port = 8888
-```
-
-Cd to the directory of the datafile and start the jupyter notebook
-```
-cd ~/.kaggle
-
-jupyter notebook
-http://ec2-54-89-73-47.compute-1.amazonaws.com:8888/
-```
 
 # References
+
+### Get data from Kaggle to S3
+https://confusedcoders.com/data-engineering/how-to-copy-kaggle-data-to-amazon-s3
 
 ### Create credentials in AWS
 https://aws.amazon.com/premiumsupport/knowledge-center/s3-locate-credentials-error/
 
 ### s3 bucket commands
 https://www.thegeekstuff.com/2019/04/aws-s3-cli-examples/
+
+### Setup Jupyter Notebook (note: not necessary for Deep AMI b/c it comes with anaconda)
+https://dataschool.com/data-modeling-101/running-jupyter-notebook-on-an-ec2-server/
