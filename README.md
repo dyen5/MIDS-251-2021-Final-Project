@@ -106,7 +106,7 @@ Enter yes for legal information and yes for appending path
 export PATH=/root/anaconda3/bin:$PATH
 ```
 
-If no was accidentally pressed, edit the path by (scroll all the way down)
+If no was accidentally pressed, edit the path by (scroll all the way down). note: the bashrc file is hidden.
 ```
 cd ~/root/andaconda3
 vi ~/.bashrc
