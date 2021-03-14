@@ -16,7 +16,7 @@ Get your vpcid and create a security group with it
 aws ec2 describe-vpcs | grep vpcId
 aws ec2 create-security-group --group-name fina_project --description "final_project" --vpc-id <vpc-b30cd6ce>
 ```
-Allow the access t ports 22 and 8888 in the security group for Jupyter Notebook
+Allow the access to ports 22 and 8888 in the security group for Jupyter Notebook
 ```
 aws ec2 authorize-security-group-ingress --group-id  sg-09ceb02f960da25fa  --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id  sg-09ceb02f960da25fa  --protocol tcp --port 8888 --cidr 0.0.0.0/0
@@ -61,9 +61,8 @@ Check contents in s3
 aws s3 ls s3://w251-covidx-ct
 ```
 
-Copy folder containing the images from the s3 bucke
+Copy folder containing the images from the s3 bucket (note: takes about 25 minutes)
 ```
-11:00
 aws s3 cp s3://w251-covidx-ct/2A_images/ . --recursive
 ```
 
