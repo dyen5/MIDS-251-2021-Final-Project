@@ -1,5 +1,10 @@
 # MIDS-251-2021-Final-Project
 
+## S3 Bucket
+```
+s3://w251-covidx-ct
+```
+
 ## AWS EC2 Instance
 ```
 ami-042e8287309f5df03
@@ -153,9 +158,6 @@ http://ec2-54-89-73-47.compute-1.amazonaws.com:8888/
 
 ### Create credentials in AWS
 https://aws.amazon.com/premiumsupport/knowledge-center/s3-locate-credentials-error/
-
-### Uploading data from Kaggle to S3 Bucket
-S3 bucket name = w251-covidx-ct
 
 ### s3 bucket commands
 https://www.thegeekstuff.com/2019/04/aws-s3-cli-examples/
