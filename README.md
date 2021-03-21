@@ -36,7 +36,7 @@ aws ec2 run-instances --image-id ami-0dc2264cd927ca9eb --instance-type p3.2xlarg
 
 ```
 
-ssh into the instance and then activate pytorch
+ssh into the instance and then activate pytorch.  Remeber to use your own pem file
 ```
 ssh -i "w251-ec2-xavier.pem" ubuntu@ec2-34-238-192-211.compute-1.amazonaws.com
 source activate pytorch_latest_p36
