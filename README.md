@@ -17,8 +17,8 @@ aws ec2 create-security-group --group-name fina_project --description "final_pro
 ```
 Allow the access to ports 22 and 8888 in the security group for Jupyter Notebook
 ```
-aws ec2 authorize-security-group-ingress --group-id  sg-09ceb02f960da25fa  --protocol tcp --port 22 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-id  sg-09ceb02f960da25fa  --protocol tcp --port 8888 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id  sg-0d020b3e1af6fbcdf  --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id  sg-0d020b3e1af6fbcdf  --protocol tcp --port 8888 --cidr 0.0.0.0/0
 ```
 
 Find an instance of our AMI (note: need to have pytorch)
@@ -28,11 +28,11 @@ aws ec2 describe-images  --filters  Name=name,Values='Deep*Learning*Ubuntu*18.04
 
 Edit the ami, security group, and key name in the code below.  Then start the Deep Learning AMI using a p3.2xlarge instance (which has 8 vcpus and gpu enabled).  Note this will not be the spot instance.
 ```
-aws ec2 run-instances --image-id ami-0dc2264cd927ca9eb --instance-type p3.2xlarge --security-group-ids <g-09ceb02f960da25fa  --associate-public-ip-address --key-name w251-ec2-xavier
+aws ec2 run-instances --image-id ami-0dc2264cd927ca9eb --instance-type p3.2xlarge --security-group-ids sg-0d020b3e1af6fbcdf --associate-public-ip-address --key-name w251-ec2-xavier
 ```
 For Spot Instance, use below:
 ```
-aws ec2 run-instances --image-id ami-0dc2264cd927ca9eb --instance-type p3.2xlarge --security-group-ids sg-09ceb02f960da25fa  --associate-public-ip-address --instance-market-options file://spot-options.json --key-name w251-ec2-xavier
+aws ec2 run-instances --image-id ami-0dc2264cd927ca9eb --instance-type p3.2xlarge --security-group-ids sg-0d020b3e1af6fbcdf  --associate-public-ip-address --instance-market-options file://spot-options.json --key-name w251-ec2-xavier
 
 ```
 
