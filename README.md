@@ -67,7 +67,7 @@ aws s3 ls s3://w251-covidx-ct
 
 Copy folder containing the images from the s3 bucket (note: takes about 25 minutes)
 ```
-aws s3 cp s3://w251-covidx-ct/2A_images/ to ~/data/2A_images --recursive
+aws s3 cp s3://w251-covidx-ct/2A_images/ ~/data/2A_images --recursive
 ```
 
 Start jupyter notebook using public IP address of instance
