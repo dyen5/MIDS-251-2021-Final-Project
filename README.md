@@ -13,7 +13,7 @@ Deep Learning AMI (Ubuntu 18.04) Version 32.0 - ami-0dc2264cd927ca9eb
 Get your vpcid and create a security group with it
 ```
 aws ec2 describe-vpcs | grep vpcId
-aws ec2 create-security-group --group-name fina_project --description "final_project" --vpc-id <vpc-b30cd6ce>
+aws ec2 create-security-group --group-name fina_project --description "final_project" --vpc-id vpc-b30cd6ce
 ```
 Allow the access to ports 22 and 8888 in the security group for Jupyter Notebook
 ```
