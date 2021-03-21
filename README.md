@@ -51,6 +51,7 @@ ssh into the instance and then activate pytorch.  Remeber to use your own pem fi
 ```
 ssh -i "w251-ec2-xavier.pem" ubuntu@ec2-34-238-192-211.compute-1.amazonaws.com
 source activate pytorch_latest_p36
+source activate tensorflow2_latest_p37
 ```
 ## Configure AWS
 AWS needs to be configured to allow communication with s3 bucket where the data will be downloaded
@@ -91,6 +92,7 @@ aws s3 cp s3://w251-covidx-ct/metadata.csv .
 
 Start jupyter notebook using public IP address of instance.  Note don't click into data folder in Jupyter - there are too many files and it may freeze.
 ```
+cd ..
 jupyter notebook --ip=0.0.0.0 --no-browser
 http://34.238.192.211:8888/?token=856548d1dcecf3200e581fa857396d2568dcacaa7e066c80
 ```
