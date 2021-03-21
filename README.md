@@ -70,7 +70,15 @@ Copy folder containing the images from the s3 bucket (note: takes about 25 minut
 aws s3 cp s3://w251-covidx-ct/2A_images/ ~/data/2A_images --recursive
 ```
 
-Start jupyter notebook using public IP address of instance
+Copy labels and metadata into data folder
+```
+aws s3 cp s3://w251-covidx-ct/test_COVIDx_CT-2A.txt .
+aws s3 cp s3://w251-covidx-ct/train_COVIDx_CT-2A.txt .
+aws s3 cp s3://w251-covidx-ct/val_COVIDx_CT-2A.txt .
+aws s3 cp s3://w251-covidx-ct/metadata.csv .
+```
+
+Start jupyter notebook using public IP address of instance.  Note don't click into data folder in Jupyter - there are too many files and it may freeze.
 ```
 jupyter notebook --ip=0.0.0.0 --no-browser
 http://34.238.192.211:8888/?token=856548d1dcecf3200e581fa857396d2568dcacaa7e066c80
