@@ -9,7 +9,6 @@ s3://w251-covidx-ct
 The following steps will be used to start a spot instance in your local terminal. (note: awscli must be setup beforehand)
 ```
 Deep Learning AMI (Ubuntu 18.04) Version 32.0 - ami-0dc2264cd927ca9eb
-Spot Instance
 ```
 Get your vpcid and create a security group with it
 ```
@@ -27,9 +26,14 @@ Find an instance of our AMI (note: need to have pytorch)
 aws ec2 describe-images  --filters  Name=name,Values='Deep*Learning*Ubuntu*18.04*32*'
 ```
 
-Edit the ami, security group, and key name in the code below.  Then start the Deep Learning AMI using a p3.2xlarge instance (which has 8 vcpus and gpu enabled).  
+Edit the ami, security group, and key name in the code below.  Then start the Deep Learning AMI using a p3.2xlarge instance (which has 8 vcpus and gpu enabled).  Note this will not be the spot instance.
 ```
 aws ec2 run-instances --image-id <ami-0dc2264cd927ca9eb> --instance-type p3.2xlarge --security-group-ids <sg-09ceb02f960da25fa>  --associate-public-ip-address --key-name <w251-ec2-xavier>
+```
+For Spot Instance, use below:
+```
+aws ec2 run-instances --image-id <ami-0dc2264cd927ca9eb> --instance-type p3.2xlarge --security-group-ids <sg-09ceb02f960da25fa>  --associate-public-ip-address --instance-market-options file://spot-options.json --key-name <w251-ec2-xavier>
+
 ```
 
 ssh into the instance and then activate pytorch
