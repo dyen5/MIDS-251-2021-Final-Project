@@ -28,11 +28,11 @@ aws ec2 describe-images  --filters  Name=name,Values='Deep*Learning*Ubuntu*18.04
 
 Edit the ami, security group, and key name in the code below.  Then start the Deep Learning AMI using a p3.2xlarge instance (which has 8 vcpus and gpu enabled).  Note this will not be the spot instance.
 ```
-aws ec2 run-instances --image-id <ami-0dc2264cd927ca9eb> --instance-type p3.2xlarge --security-group-ids <sg-09ceb02f960da25fa>  --associate-public-ip-address --key-name <w251-ec2-xavier>
+aws ec2 run-instances --image-id ami-0dc2264cd927ca9eb --instance-type p3.2xlarge --security-group-ids <g-09ceb02f960da25fa  --associate-public-ip-address --key-name w251-ec2-xavier
 ```
 For Spot Instance, use below:
 ```
-aws ec2 run-instances --image-id <ami-0dc2264cd927ca9eb> --instance-type p3.2xlarge --security-group-ids <sg-09ceb02f960da25fa>  --associate-public-ip-address --instance-market-options file://spot-options.json --key-name <w251-ec2-xavier>
+aws ec2 run-instances --image-id ami-0dc2264cd927ca9eb --instance-type p3.2xlarge --security-group-ids sg-09ceb02f960da25fa  --associate-public-ip-address --instance-market-options file://spot-options.json --key-name w251-ec2-xavier
 
 ```
 
