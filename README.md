@@ -79,7 +79,7 @@ aws s3 ls s3://w251-covidx-ct
 ```
 Copy folder containing the train,hyper, val, and test from the s3 bucket (note: takes about 25 minutes)
 ```
-aws s3 cp s3://w251-covidx-ct/numpy-files/ ~/data/numppy-files --recursive
+aws s3 cp s3://w251-covidx-ct/numpy-files/ ~/numpy-files --recursive
 ```
 
 Copy labels and metadata into data folder
