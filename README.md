@@ -63,7 +63,8 @@ Default region name: us-east-1
 Default output format: <hit enter>
 ```
 
-## Options for retrieving data
+## Options for retrieving data - numpy files
+Images have been matched with their respective labels, randomized, split, and converted to numpy files.  The numpy files may then be converted to tensors for training with pytorch.  In this case, the images do not need to be downloaded.
 #### Get from s3 bucket 
 
 Make a folder called data in /home/ubuntu.  Chmod 777 enables copying into the file.
@@ -76,7 +77,29 @@ Check contents in s3
 ```
 aws s3 ls s3://w251-covidx-ct
 ```
+Copy folder containing the train,hyper, val, and test from the s3 bucket (note: takes about 25 minutes)
+```
+aws s3 cp s3://w251-covidx-ct/numpy-files/ ~/data/numppy-files --recursive
+```
 
+Copy labels and metadata into data folder
+```
+aws s3 cp s3://w251-covidx-ct/test_COVIDx_CT-2A.txt .
+aws s3 cp s3://w251-covidx-ct/train_COVIDx_CT-2A.txt .
+aws s3 cp s3://w251-covidx-ct/val_COVIDx_CT-2A.txt .
+aws s3 cp s3://w251-covidx-ct/metadata.csv .
+```
+## Options for retrieving data - images
+Make a folder called data in /home/ubuntu.  Chmod 777 enables copying into the file.
+```
+mkdir data
+chmod 777 data
+cd data
+```
+Check contents in s3
+```
+aws s3 ls s3://w251-covidx-ct
+```
 Copy folder containing the images from the s3 bucket (note: takes about 25 minutes)
 ```
 aws s3 cp s3://w251-covidx-ct/2A_images/ ~/data/2A_images --recursive
@@ -90,12 +113,6 @@ aws s3 cp s3://w251-covidx-ct/val_COVIDx_CT-2A.txt .
 aws s3 cp s3://w251-covidx-ct/metadata.csv .
 ```
 
-Start jupyter notebook using public IP address of instance.  Note don't click into data folder in Jupyter - there are too many files and it may freeze.
-```
-cd ..
-jupyter notebook --ip=0.0.0.0 --no-browser
-http://34.238.192.211:8888/?token=856548d1dcecf3200e581fa857396d2568dcacaa7e066c80
-```
 #### Alternatively, get the data from kaggle
 
 Create Kaggle directory
@@ -117,6 +134,14 @@ kaggle datasets download -d hgunraj/covidxct
 Unzip dataset - 10 minutes
 ```
 unzip covidxct.zip
+```
+
+## Jupyter Notebook
+Once the data has been loaded into the instance, cd into the directory where the data file is located.  Start jupyter notebook using public IP address of instance.  Note don't click into data folder in Jupyter - there are too many files and it may freeze.
+```
+cd ..
+jupyter notebook --ip=0.0.0.0 --no-browser
+http://34.238.192.211:8888/?token=856548d1dcecf3200e581fa857396d2568dcacaa7e066c80
 ```
 
 ## Dependencies
