@@ -69,9 +69,8 @@ Images have been matched with their respective labels, randomized, split, and co
 
 Make a folder called data in /home/ubuntu.  Chmod 777 enables copying into the file.
 ```
-mkdir data
-chmod 777 data
-cd data
+mkdir numpy-files
+chmod 777 numpy-files
 ```
 Check contents in s3
 ```
@@ -94,7 +93,6 @@ Make a folder called data in /home/ubuntu.  Chmod 777 enables copying into the f
 ```
 mkdir data
 chmod 777 data
-cd data
 ```
 Check contents in s3
 ```
@@ -139,7 +137,7 @@ unzip covidxct.zip
 ## Jupyter Notebook
 Once the data has been loaded into the instance, cd into the directory where the data file is located.  Start jupyter notebook using public IP address of instance.  Note don't click into data folder in Jupyter - there are too many files and it may freeze.
 ```
-cd ..
+cd ~
 jupyter notebook --ip=0.0.0.0 --no-browser
 http://34.238.192.211:8888/?token=856548d1dcecf3200e581fa857396d2568dcacaa7e066c80
 ```
