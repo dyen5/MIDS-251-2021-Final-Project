@@ -132,7 +132,10 @@ Unzip dataset - 10 minutes
 ```
 unzip covidxct.zip
 ```
-
+## Load repo
+```
+git clone https://github.com/sli0111/MIDS-251-2021-Final-Project.git
+```
 ## Jupyter Notebook
 Once the data has been loaded into the instance, cd into the directory where the data file is located.  Start jupyter notebook using public IP address of instance.  Note don't click into data folder in Jupyter - there are too many files and it may freeze.
 ```
