@@ -51,9 +51,8 @@ ssh into the instance and then activate pytorch.  Remeber to use your own pem fi
 ```
 ssh -i "w251-ec2-xavier.pem" ubuntu@ec2-34-238-192-211.compute-1.amazonaws.com
 source activate pytorch_latest_p36
-source activate tensorflow2_latest_p37
 ```
-## Configure AWS
+## Configure AWS 
 AWS needs to be configured to allow communication with s3 bucket where the data will be downloaded
 ```
 aws configure 
