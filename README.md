@@ -6,7 +6,7 @@ s3://w251-covidx-ct
 ```
 
 ## AWS EC2 Instance
-The following steps will be used to start a spot instance in your local terminal. (note: awscli must be setup beforehand)
+The following steps will be used to start a EC2 instance for model training. (note: awscli must be setup beforehand)
 ```
 Deep Learning AMI (Ubuntu 18.04) Version 32.0 - ami-0dc2264cd927ca9eb
 ```
