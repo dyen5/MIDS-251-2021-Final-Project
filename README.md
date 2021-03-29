@@ -123,7 +123,7 @@ cd .kaggle
 vim kaggle.json
 ```
 
-Download Dataset using Kaggle API - 10 minutes 
+Download Dataset using Kaggle API - 10 minutes (may need to use command: pip install kaggle)
 ```
 kaggle datasets download -d hgunraj/covidxct
 ```
