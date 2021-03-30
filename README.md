@@ -88,6 +88,11 @@ aws s3 cp s3://w251-covidx-ct/val_COVIDx_CT-2A.txt .
 aws s3 cp s3://w251-covidx-ct/metadata.csv .
 ```
 ## Options for retrieving data - images
+Images from the s3 bucket have been reorganized (i.e. randomized and split in the same seed as the numpy files), such that the directories are suited for PyTorch ImageFolder.
+
+While the images from Kaggle are the unorganized image files.
+
+#### Get from s3 bucket
 Make a folder called data in /home/ubuntu.  Chmod 777 enables copying into the file.
 ```
 mkdir data
@@ -99,7 +104,7 @@ aws s3 ls s3://w251-covidx-ct
 ```
 Copy folder containing the images from the s3 bucket (note: takes about 25 minutes)
 ```
-aws s3 cp s3://w251-covidx-ct/2A_images/ ~/data/2A_images --recursive
+aws s3 cp s3://w251-covidx-ct/2A_images/ ~/data/2A_images_reorg --recursive
 ```
 
 Copy labels and metadata into data folder
@@ -143,6 +148,9 @@ cd ~
 jupyter notebook --ip=0.0.0.0 --no-browser
 http://34.238.192.211:8888/?token=856548d1dcecf3200e581fa857396d2568dcacaa7e066c80
 ```
+
+## Training
+Follow one of the Neural Network Notebooks
 
 ## Dependencies
 ```
