@@ -118,8 +118,8 @@ def predict_CNN(model, image):
 #Model Initializiation
 CNN_Model = CNN(filter_sizes = [2, 3, 4], 
                 num_filters = [25,25,25],
-                fc1_neurons = 100,
-                fc2_neurons = None
+                fc1_neurons = 200,
+                fc2_neurons = 50
                 )
 
 # push the model to GPU
