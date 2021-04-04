@@ -17,7 +17,7 @@ from datetime import datetime
 PATH = '/apps/w251_transfer_learning_weights'
 
 ## Path to saved images
-PATH_save = '/apps/saved_images'
+PATH_save = '/apps/saved_images/'
 if not os.path.exists(PATH_save):
     os.makedirs(PATH_save)
 
@@ -125,7 +125,7 @@ while True:
         cv2.waitKey(0)
         cap.release()
         cv2.destroyAllWindows()
-        response = input('Is image acceptable for processing?  Enter "y" for Yes or "n" for No ')
+#        response = input('Is image acceptable for processing?  Enter "y" for Yes or "n" for No ')
 #        while response not in ['y','n']:
 #            response = input('Is image acceptable for processing?  Enter "y" for Yes or "n" for No ')
 #        if response == 'y':
@@ -150,15 +150,16 @@ while True:
             
             # Stores image to s3 with datetime 
             now = datetime.now()
-            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-            filename = dt_string + "-" + pred 
+            dt_string = now.strftime("%d%m%Y-%H:%M:%S")
+            filename = dt_string + "-" + pred + '.png'
+            filepath = PATH_save + filename
             
             # Save image locally
-            cv2.imwrite(PATH_save, filename)
+            cv2.imwrite(filepath, frame)
             
             # To s3                       
             s3 = boto3.client('s3')
-            s3.upload_file(PATH_save, bucket, filename)
+            s3.upload_file(filepath, bucket, '%s/%s' %('Infernce',filename)
             print("results uploaded to s3......................................")
             
             # Display results locally
