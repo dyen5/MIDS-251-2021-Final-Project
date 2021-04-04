@@ -23,6 +23,7 @@ if not os.path.exists(PATH_save):
 
 ## s3 bucket
 bucket = 'w251-covidx-ct'
+bucket_folder = 'Inference'
 
 # -------------------------------------------------------------------------
 ## Load Pretrained Model
@@ -159,7 +160,7 @@ while True:
             
             # To s3                       
             s3 = boto3.client('s3')
-            s3.upload_file(filepath, bucket, '%s/%s' %('Inference',filename))
+            s3.upload_file(filepath, bucket, '%s/%s' %(bucket_folder,filename))
             print("results uploaded to s3......................................")
             
             # Display results locally
