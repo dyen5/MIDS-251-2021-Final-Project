@@ -52,14 +52,24 @@ def prediction(model, image):
     # Make 4D for Resnet: (batch, channel, width, height)
     inputs = inputs.cuda().float().unsqueeze(0)   
     
+    # To Record inference time
+    start = torch.cuda.Event(enable_timing=True)
+    end = torch.cuda.Event(enable_timing=True)
+    
     # Prediction with model - outputs class and probability
     with torch.no_grad():
+        start.record()
         outputs = model(inputs)
         _, preds = torch.max(outputs, 1)
         prob = nn.functional.softmax(outputs, dim=1)
+        end.record()
         
+        # Waits for everything to finish running
+        torch.cuda.synchronize()
+        print('inference time: %0.0f ms' %start.elapsed_time(end))
+        print(class_names[preds[0]], ': %0.3f' %prob[0][preds[0]].item())
         return class_names[preds[0]], round(prob[0][preds[0]].item(), 3)
-        #print(class_names[preds[0]], ': %0.3f' %prob[0][preds[0]].item())
+
 
 # --------------------------------------------------------------------------------
 ## Padding for Image
