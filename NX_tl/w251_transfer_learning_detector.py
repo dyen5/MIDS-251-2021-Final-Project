@@ -125,7 +125,7 @@ while True:
         cv2.waitKey(0)
         cap.release()
         cv2.destroyAllWindows()
-        response = input('Is image acceptable for processing?  Enter "y" for Yes or "n" for No ')
+#        response = input('Is image acceptable for processing?  Enter "y" for Yes or "n" for No ')
 #        while response not in ['y','n']:
 #            response = input('Is image acceptable for processing?  Enter "y" for Yes or "n" for No ')
 #        if response == 'y':
