@@ -4,15 +4,25 @@ import torch
 import torch.nn as nn
 import numpy as np
 import torchvision
-from torchvision import datasets, models, transforms
+from torchvision import models, transforms
 import cv2
 import PIL
-import time
+import os
+import boto3
+from datetime import datetim
 
 # -------------------------------------------------------------------------
 ## **USER UPDATE**
 ## Path to Pretrained Model 
 PATH = '/apps/w251_transfer_learning_weights'
+
+## Path to saved images
+PATH_save = '/apps/saved_images'
+if not os.path.exists(PATH_save):
+    os.makedirs(PATH_save)
+
+## s3 bucket
+bucket = 'w251-covidx-ct/Inference/'
 
 # -------------------------------------------------------------------------
 ## Load Pretrained Model
@@ -66,10 +76,11 @@ def prediction(model, image):
         
         # Waits for everything to finish running
         torch.cuda.synchronize()
+        print('results....................................................')
         print('inference time: %0.0f ms' %start.elapsed_time(end))
         print(class_names[preds[0]], ': %0.3f' %prob[0][preds[0]].item())
+        
         return class_names[preds[0]], round(prob[0][preds[0]].item(), 3)
-
 
 # --------------------------------------------------------------------------------
 ## Padding for Image
@@ -130,10 +141,27 @@ while True:
         response2 = input('Is image acceptable for resizing and prediction?  Enter "y" for Yes or "n" for No ')
         while response2 not in ['y','n']:
             response2 = input('Is image acceptable for resizing and prediction?  Enter "y" for Yes or "n" for No ')
-        if response2 == 'y':
+        if response2 == 'y
+        
+            # Loads image from camera and performs prediction
             img = PIL.Image.fromarray(frame).convert('RGB')
             pred, prob = prediction(model_tl, img)
             results = str(pred) + ': ' + str(prob)
+            
+            # Stores image to s3 with datetime 
+            now = datetime.now()
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            filename = dt_string + "-" + pred 
+            
+            # Save image locally
+            cv2.imwrite(PATH_save, filename)
+            
+            # To s3                       
+            s3 = boto3.client('s3')
+            s3.upload_file(PATH_save, bucket, filename)
+            print("results uploaded to s3......................................")
+            
+            # Display results locally
             cv2.namedWindow(results, cv2.WINDOW_NORMAL)
             cv2.imshow(str(results), frame)
             cv2.waitKey(0)
