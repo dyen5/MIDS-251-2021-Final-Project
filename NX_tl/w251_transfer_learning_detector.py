@@ -150,7 +150,7 @@ while True:
             
             # Stores image to s3 with datetime 
             now = datetime.now()
-            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            dt_string = now.strftime("%d%m%Y-%H:%M:%S")
             filename = dt_string + "-" + pred + '.png'
             filepath = PATH_save + filename
             
@@ -159,7 +159,7 @@ while True:
             
             # To s3                       
             s3 = boto3.client('s3')
-            s3.upload_file(filepath, bucket, filename)
+            s3.upload_file(filepath, bucket, '%s/%s' %('Infernce',filename)
             print("results uploaded to s3......................................")
             
             # Display results locally
