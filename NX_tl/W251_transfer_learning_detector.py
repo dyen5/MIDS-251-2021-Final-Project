@@ -5,13 +5,14 @@ import torch.nn as nn
 import numpy as np
 import torchvision
 from torchvision import datasets, models, transforms
+import cv2
 import PIL
 import time
 
 # -------------------------------------------------------------------------
 ## **USER UPDATE**
 ## Path to Pretrained Model 
-PATH = '/home/ubuntu/w251_transfer_learning_weights'
+PATH = '/apps/w251_transfer_learning_weights'
 
 # -------------------------------------------------------------------------
 ## Load Pretrained Model
