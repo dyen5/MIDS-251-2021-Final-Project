@@ -23,10 +23,8 @@ if not os.path.exists(PATH_save):
 
 ## s3 bucket
 bucket = 'w251-covidx-ct'
-<<<<<<< HEAD
-=======
 bucket_folder = 'Inference'
->>>>>>> 152e99dcc5d1e8df1b0f9acaa331d88195d8b6ae
+
 
 # -------------------------------------------------------------------------
 ## Load Pretrained Model
