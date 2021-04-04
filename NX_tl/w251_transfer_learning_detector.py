@@ -159,7 +159,7 @@ while True:
             
             # To s3                       
             s3 = boto3.client('s3')
-            s3.upload_file(filepath, bucket, '%s/%s' %('Infernce',filename))
+            s3.upload_file(filepath, bucket, '%s/%s' %('Inference',filename))
             print("results uploaded to s3......................................")
             
             # Display results locally
