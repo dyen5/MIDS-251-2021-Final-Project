@@ -58,7 +58,8 @@ def prediction(model, image):
         _, preds = torch.max(outputs, 1)
         prob = nn.functional.softmax(outputs, dim=1)
         
-        print(class_names[preds[0]], ': %0.3f' %prob[0][preds[0]].item())
+        return class_names[preds[0]], round(prob[0][preds[0]].item(), 3)
+        #print(class_names[preds[0]], ': %0.3f' %prob[0][preds[0]].item())
 
 # --------------------------------------------------------------------------------
 ## Padding for Image
@@ -121,7 +122,14 @@ while True:
             response2 = input('Is image acceptable for resizing and prediction?  Enter "y" for Yes or "n" for No ')
         if response2 == 'y':
             img = PIL.Image.fromarray(frame).convert('RGB')
-            prediction(model_tl, img)
+            pred, prob = prediction(model_tl, img)
+            results = str(pred) + ': ' + str(prob)
+            cv2.namedWindow(results, cv2.WINDOW_NORMAL)
+            cv2.imshow(str(results), frame)
+            cv2.waitKey(0)
+            cap.release()
+            cv2.destroyAllWindows()
+
         else:
             continue
 
