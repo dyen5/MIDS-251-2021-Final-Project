@@ -141,7 +141,7 @@ while True:
         response2 = input('Is image acceptable for resizing and prediction?  Enter "y" for Yes or "n" for No ')
         while response2 not in ['y','n']:
             response2 = input('Is image acceptable for resizing and prediction?  Enter "y" for Yes or "n" for No ')
-        if response2 == 'y
+        if response2 == 'y':
         
             # Loads image from camera and performs prediction
             img = PIL.Image.fromarray(frame).convert('RGB')
