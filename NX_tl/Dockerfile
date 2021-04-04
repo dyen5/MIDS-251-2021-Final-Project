@@ -8,6 +8,7 @@ RUN pip3 install numpy
 RUN pip3 install torch
 RUN pip3 install torchvision==0.2.2
 RUN pip3 install awscli
+RUN pip3 isntall boto3
 
 RUN git clone https://github.com/timesler/facenet-pytorch.git facenet_pytorch
 
