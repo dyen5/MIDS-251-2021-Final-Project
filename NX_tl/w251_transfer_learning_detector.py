@@ -50,7 +50,7 @@ def prediction(model, image):
     inputs = data_transform(image) 
     
     # Make 4D for Resnet: (batch, channel, width, height)
-    inputs = inputs.float().unsqueeze(0)   
+    inputs = inputs..cuda().float().unsqueeze(0)   
     
     # Prediction with model - outputs class and probability
     with torch.no_grad():
