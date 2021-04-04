@@ -9,7 +9,7 @@ import cv2
 import PIL
 import os
 import boto3
-from datetime import datetim
+from datetime import datetime
 
 # -------------------------------------------------------------------------
 ## **USER UPDATE**
