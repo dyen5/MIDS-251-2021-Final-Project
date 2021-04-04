@@ -22,7 +22,7 @@ if not os.path.exists(PATH_save):
     os.makedirs(PATH_save)
 
 ## s3 bucket
-bucket = 'w251-covidx-ct/Inference/'
+bucket = 'w251-covidx-ct'
 
 # -------------------------------------------------------------------------
 ## Load Pretrained Model
