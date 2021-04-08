@@ -149,6 +149,17 @@ jupyter notebook --ip=0.0.0.0 --no-browser
 http://34.238.192.211:8888/?token=856548d1dcecf3200e581fa857396d2568dcacaa7e066c80
 ```
 
+Optionally use nohup incase jupyter notbook disconnects
+```
+# start notebook
+nohup jupyter notebook --ip=0.0.0.0 --no-browser &> nohup_log.out &
+cat nohup_log.out
+
+# to kill
+lsof | grep nohup_log.out
+kill 1234
+```
+
 ## Training
 Follow one of the Neural Network Notebooks
 
