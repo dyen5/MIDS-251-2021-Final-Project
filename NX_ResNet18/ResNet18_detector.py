@@ -14,7 +14,7 @@ from datetime import datetime
 # -------------------------------------------------------------------------
 ## **USER UPDATE**
 ## Path to Pretrained Model 
-PATH = '/apps/w251_transfer_learning_weights_full'
+PATH = '/apps/ResNet18_weights_full'
 
 ## Path to saved images
 PATH_save = '/apps/saved_images/'
