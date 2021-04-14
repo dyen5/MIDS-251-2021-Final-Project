@@ -98,8 +98,6 @@ aws s3 cp s3://w251-covidx-ct/metadata.csv .
 ## Options for retrieving data - images
 Images from the s3 bucket have been reorganized (i.e. randomized and split in the same seed as the numpy files), such that the directories are suited for PyTorch ImageFolder.
 
-While the images from Kaggle are the unorganized image files.
-
 #### Get from s3 bucket
 Make a folder called data in /home/ubuntu.  Chmod 777 enables copying into the file.
 ```
@@ -124,6 +122,7 @@ aws s3 cp s3://w251-covidx-ct/metadata.csv .
 ```
 
 #### Alternatively, get the data from kaggle
+Images from Kaggle are default order.
 
 Create Kaggle directory
 ```
