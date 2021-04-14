@@ -3,7 +3,7 @@
 ## Motivation and Work
 In this project, we explore the use of convolutional neural networks to classify COVID-19 CT Scans from cases of pneumonia and healthly lungs and deploy trained models on a edge device, Nvidia Jetson Xavier.  The data originates from [Covidx CT on Kaggle](https://www.kaggle.com/hgunraj/covidxct).
 
-![Sample_CT_Scan]()
+![Sample_CT_Scan](https://github.com/sli0111/MIDS-251-2021-Final-Project/blob/main/Sample_CT_Scan.png)
 
 ## S3 Bucket
 Images are stored in s3 bucket
